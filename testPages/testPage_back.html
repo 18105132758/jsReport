@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入报表JS-->
+    <script type="text/javascript" src="../dependencies/jquery/jquery-3.3.1.js"></script>
+    <!--<script type="text/javascript" src="../report.js"></script>-->
+    <style type="text/css" >
+        table,tr,th,td{border:1px solid #0094ff; }
+        /*table {width: 200px; height: 200px;}*/
+    </style>
+</head>
+<body>
+    <div id="reportDiv">
+        <table id="outerTable">
+            <tr id="rowTitle">
+                <th colspan="2"></th>
+                <th colspan="4">
+                    <table>
+                        <tr>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>3</th>
+                            <th>3</th>
+                        </tr>
+                    </table>
+                </th>
+            </tr>
+            <tr id="dataRow">
+                <td rowspan="4" colspan="2">
+                    <table>
+                        <tr>
+                            <th rowspan="4">11</th>
+                            <th>1</th>
+                        </tr>
+                        <tr><th>1</th></tr>
+                        <tr><th>1</th></tr>
+                        <tr><th>1</th></tr>
+                    </table>
+                </td>
+                <td rowspan="4" colspan="4">
+                    <table>
+                        <tr>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                            <td>2</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

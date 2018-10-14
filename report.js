@@ -1,4 +1,3 @@
-// require("./models/test.js");
 
 // var tableTemplate = " \
 //     <table>\
@@ -6,162 +5,110 @@
 //     </table>\
 // "
 
+
+/**
+ * 报表引擎插件
+ * @param initOption
+ * @returns {{drawReport: drawReport}}
+ */
 $.fn.reportengin = function(initOption){
+    //ajax的连接信息？？？
     let reportOpt = {
-        rowTitle:null,
-        colTitle:null,
-        data:[]
+        rowTitle:null,  //行标题
+        colTitle:null,  //列标题
+        spreadDir:"Z",  //扩展方向： H-横向      Z-纵向
+        colTitleCols:0, //列标题列数
+        colTitleRows:0, //列标题行数
+        rowTitleRows:0, //行标题行数
+        rowTitleCols:0, //行标题列数
+        data:[],    //数据
+        effectiveRowTitle:null, //数据相关的行标题
+        effectiveColTitle:null  //数据相关的列标题
     };
     $.extend(reportOpt, initOption); //合并配置项
+    //创建标题工具
+    let titleUtil = new TitilUtils();
+    //提取数据相关的标题信息
+    reportOpt.effectiveRowTitle = titleUtil.collectEffectiveRowTitle(reportOpt);
+    reportOpt.effectiveColTitle = titleUtil.collectEffectiveColTitle(reportOpt);
 
-    let util = new TitilUtils();
-    let container = $("#rowTitle");
+    let $reportContainer = $(this);
+
     return {
         drawReport: function(){
+
+            let rowTitleContainer = $("<tr id='rowTitle'></tr>");
+            let mainContainer = $("<tr id='mainReport'></tr>");
+
+            //渲染空表头：适用于交叉报表
+            let emptyTitleEl = titleUtil.emptyTitleToHtmlEL(reportOpt);
+            emptyTitleEl && rowTitleContainer.append(emptyTitleEl);
+
             //渲染表头：行标题
-            if(reportOpt.rowTitle && reportOpt.rowTitle.length){
+            if(reportOpt.rowTitleRows && reportOpt.rowTitleCols){
                 //渲染行表头
-                var rowTitleTable = util.rowTitleDefsToHtmlEL_TABLE(dopt.rowTitle);
-                rowTitleTable && container.append(rowTitleTable, );
+                let rowTitleTable = titleUtil.rowTitleDefsToHtmlEL_TABLE(reportOpt.rowTitle, reportOpt);
+                rowTitleTable && rowTitleContainer.append(rowTitleTable);
             }
             //渲染列标题
+            if(reportOpt.colTitleCols && reportOpt.colTitleRows){
+                //渲染行表头
+                let colTitleTable = titleUtil.colTitleDefsToHtmlEL_TABLE(reportOpt.colTitle, reportOpt);
+                console.log(colTitleTable)
+                colTitleTable && mainContainer.append(colTitleTable);
+            }
             //渲染数据
-
+            let dataEL = titleUtil.drawReportDatas(reportOpt);
+            mainContainer.append(dataEL);
             //拼装
+            let reportTable = $("<table id='reportTable'></table>");
+            reportTable.append(rowTitleContainer[0]);
+            reportTable.append(mainContainer);
+            $reportContainer.html(reportTable[0]);
         },
 
     }
 };
 
-$(function(){
-    var opt = {
-        rowTitle : [[{
-            value : "空占标题",
-            rowSpan : 2,
-            colSpan : 1
-        },{
-            value : "大标题",
-            rowSpan : 1,
-            colSpan : 2
-        }], [{
-            value : "标题1",
-            rowSpan : 1,
-            colSpan : 1
-        },{
-            value : "标题2",
-            rowSpan : 1,
-            colSpan : 1
-        }]]
-    }
-    $("#reportDiv").reportengin(opt).drawReport();
-
-})
-
-
-
-// function drawRowTitle(){
-//     var outerTable = $("#outerTable");
-//     //渲染行比奥拓
-// }
-
-/**
- * 标题工具类
- * @constructor
- */
-function TitilUtils(){
-
-    /**
-     * 将行标题定义转换成table
-     * @param rowTitleDefs
-     */
-    this.rowTitleDefsToHtmlEL_TABLE = function(rowTitleDefs, reportOpt){
-        var $titleTable = $("<table></table>");
-        if(rowTitleDefs && rowTitleDefs.length){
-            for (let i = 0; i < rowTitleDefs.length; i++){
-                var tr = this.oneRowTitleDefsToHtmlEL_TR(rowTitleDefs[i]);
-                tr && $titleTable.append(tr);
-            }
-            return $titleTable[0];
-        }
-        return undefined;
-    }
-
-    /**
-     * 将一行标题转换成一个html元素：tr
-     * @param titleDef
-     * @returns {*}
-     */
-    this.oneRowTitleDefsToHtmlEL_TR = function(titleDefs){
-        let $tr = $("<tr></tr>");
-        if(titleDefs && titleDefs.length){
-            for (let i = 0; i < titleDefs.length; i++){
-                let titleDef = titleDefs[i];
-                var thEl = this.onTitleDefToHtmlEL_TH(titleDef);
-                $tr.append(thEl);
-            }
-            return $tr[0];
-        }
-        return undefined;
-    }
-
-
-    /**
-     * 将一个标定定义转换成对应的HTML元素
-     * @param titleDef
-     * @returns {*}
-     */
-    this.onTitleDefToHtmlEL_TH = function(titleDef){
-        var title = new ReportTitle(titleDef).toDocEl();
-        console.log(title);
-        return title;
-    }
-}
-
-/**
- * 行标题定义
- * @constructor
- */
-function ReportTitle(data, type){
-    this.value = "默认标题";
-    this.dataProperty = "数据来源属性";
-    this.rowSpan = 1;
-    this.colSpan = 1;
-    this.isGrouped = false; //是否分组
-    this.isSupportOrder = false;    //是否支持排序
-    this.extend = "";    //扩展方向
-    this.titleType = type || "ROW"; //标题类型： ROW-行标题、 COL-列标题. 默认为ROW
-    $.extend(this, data);
-
-    this.toDocEl = function(){
-        var $titleCell = $("<th></th>");
-        $titleCell.text(this.value);
-        $titleCell.attr("rowSpan", this.rowSpan);
-        $titleCell.attr("colSpan", this.colSpan);
-        this.isGrouped && $titleCell.attr("isGrouped", this.isGrouped);
-        this.isSupportOrder && $titleCell.attr("isSupportOrder", this.isSupportOrder);
-        return $titleCell[0];
-    }
-}
-
-/**
- * 行标题定义
- * @constructor
- */
-function ReportColTitle(){
-    this.value = "标题";
-    this.dataProperty = "数据来源属性";
-    this.rowSpan = 1;
-    this.colSpan = 1;
-    this.isGrouped = false; //是否分组
-    // this.isSupportOrder = false;    //是否支持排序
-    this.extend = "";    //扩展方向
-}
-
-
-
-
-
-
-
-
-
+// $(function(){
+//     var opt = {
+//         rowTitle : [[{
+//             value : "人员信息",
+//             rowSpan : 1,
+//             colSpan : 2
+//         }], [{
+//             value : "姓名",
+//             rowSpan : 1,
+//             colSpan : 1,
+//             dataProperty:"name"
+//         },{
+//             value : "年龄",
+//             dataProperty:"age",
+//             rowSpan : 1,
+//             colSpan : 1
+//         }]],
+//         colTitle:[[{
+//             value : "列标题1",
+//             rowSpan : 2,
+//             colSpan : 1
+//         },{
+//             value : "列标题1_1",
+//             rowSpan : 1,
+//             colSpan : 1
+//         }],[{
+//             value : "列标题1_2",
+//             rowSpan : 1,
+//             colSpan : 1
+//         }]],
+//         rowTitleRows:2,
+//         rowTitleCols:2,
+//         colTitleRows:2,
+//         colTitleCols:2,
+//         data:[
+//             {"name": "张三", "age":11},
+//             {"name": "李四", "age":12},
+//             // {"name": "赵武", "age":13}
+//         ]
+//     }
+//     $("#reportDiv").reportengin(opt).drawReport();
+// });
