@@ -89,7 +89,7 @@ function TitilUtils(){
         if(reportOpt.rowTitleRows && reportOpt.colTitleCols){
             let $emptyTitle = $("<th></th>");
             // $emptyTitle.attr("rowspan", reportOpt.rowTitleRows);
-            $emptyTitle.attr("colspan", reportOpt.colTitleCols);
+            // $emptyTitle.attr("colspan", reportOpt.colTitleCols);
             return $emptyTitle[0];
         }
         return null;
@@ -103,7 +103,7 @@ function TitilUtils(){
         if(reportOpt.colTitleRows && reportOpt.colTitleCols){
             let $colTitleTh = $("<th ></th>");
             // $colTitleTh.attr("rowspan", reportOpt.colTitleRows);
-            $colTitleTh.attr("colspan", reportOpt.colTitleCols);
+            // $colTitleTh.attr("colspan", reportOpt.colTitleCols);
 
             let tableEl =  this.commonTitleDefsToHtmlEL_TABLE(colTitleDefs)
             tableEl && $colTitleTh.append(tableEl);
@@ -120,7 +120,7 @@ function TitilUtils(){
         if(reportOpt.rowTitleRows && reportOpt.rowTitleCols){
             let $rowTitleTh = $("<th ></th>");
             // $rowTitleTh.attr("rowspan", reportOpt.rowTitleRows);
-            $rowTitleTh.attr("colspan", reportOpt.rowTitleCols);
+            // $rowTitleTh.attr("colspan", reportOpt.rowTitleCols);
 
             let tableEl =  this.commonTitleDefsToHtmlEL_TABLE(rowTitleDefs)
             tableEl && $rowTitleTh.append(tableEl);
