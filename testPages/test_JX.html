@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>交叉报表</title>
+
+    <!--引入报表JS-->
+    <script type="text/javascript" src="../dependencies/jquery/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../models/ReportTitle.js"></script>
+    <script type="text/javascript" src="../utils/reportTitleUtils.js"></script>
+    <script type="text/javascript" src="../report.js"></script>
+    <script type="text/javascript" src="../testJs/testJ.js"></script>
+    <style type="text/css" >
+
+        *{
+            /*所有边框间距设置为0*/
+            margin:0px;
+            padding: 0px;
+        }
+        /*设置边框线*/
+        table,tr,th,td{border:1px solid #0094ff; }
+
+        #data_div table{
+            /*table宽度有内容决定*/
+            width: max-content;
+        }
+        #rowTitle_Div table{
+            /*table宽度有内容决定*/
+            width: max-content;
+        }
+
+
+        #data_div{
+            /*数据主体，区域大小设置，超出部分使用滚动条*/
+            height: 100px;
+            width: 150px;
+            overflow: auto;
+        }
+        #rowTitle_Div{
+            width: 150px;
+            overflow: hidden;
+        }
+        #colTitleDiv{
+            /*列标题，超出部分隐藏*/
+            height: 100px;
+            overflow: hidden;
+        }
+
+
+        #rowTitle_Div table th{
+            /*行标题内部单元格样式设置*/
+            width: 120px;
+            height: 25px;
+            background-color: cadetblue;
+        }
+        #data_div table th,td{
+            /*主数据区单元格样式设置*/
+            width: 120px;
+            height: 25px;
+            background-color: aquamarine;
+        }
+        #colTitleDiv table th{
+            /*列标题内部单元格样式设置*/
+            width: 40px;
+            height: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div id="reportDivJ"> </div>
+</body>
+</html>

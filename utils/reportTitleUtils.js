@@ -9,6 +9,8 @@ function TitilUtils(){
      */
     this.drawReportDatas = function (reportOpt){
         let $dataTh = $("<th></th>");
+        let $dataDiv = $("<div id='data_div'></div>");
+        $dataTh.append($dataDiv[0]);
         let $dataTable = $("<table></table>");
         let reportData = reportOpt.data;
 
@@ -19,9 +21,9 @@ function TitilUtils(){
                     let oneRowEL = this.oneRowDataToHtmlEL_Z(reportOpt, reportData[i]);
                     $dataTable.append(oneRowEL);
                 }
-                $dataTh.append($dataTable);
+                $dataDiv.append($dataTable);
             }else{
-                $dataTh.append("没有数据");
+                $dataDiv.append("没有数据");
             }
         }
 
@@ -34,13 +36,11 @@ function TitilUtils(){
                     let oneRowEL = this.oneRowDataToHtmlEL_H(reportOpt, colTitle[i]);
                     $dataTable.append(oneRowEL);
                 }
-                $dataTh.append($dataTable);
+                $dataDiv.append($dataTable);
             }else{
-                $dataTh.append("没有数据");
+                $dataDiv.append("没有数据");
             }
         }
-
-
         return $dataTh[0];
     };
 
@@ -102,11 +102,13 @@ function TitilUtils(){
     this.colTitleDefsToHtmlEL_TABLE = function(colTitleDefs, reportOpt){
         if(reportOpt.colTitleRows && reportOpt.colTitleCols){
             let $colTitleTh = $("<th ></th>");
+            let $colTitleDiv = $("<div id='colTitleDiv'></div>");
+            $colTitleTh.append($colTitleDiv);
             // $colTitleTh.attr("rowspan", reportOpt.colTitleRows);
             // $colTitleTh.attr("colspan", reportOpt.colTitleCols);
 
             let tableEl =  this.commonTitleDefsToHtmlEL_TABLE(colTitleDefs)
-            tableEl && $colTitleTh.append(tableEl);
+            tableEl && $colTitleDiv.append(tableEl);
             return $colTitleTh[0];
         }
         return null;
@@ -119,11 +121,13 @@ function TitilUtils(){
     this.rowTitleDefsToHtmlEL_TABLE = function(rowTitleDefs, reportOpt){
         if(reportOpt.rowTitleRows && reportOpt.rowTitleCols){
             let $rowTitleTh = $("<th ></th>");
+            let $rowTitleDiv = $("<div id='rowTitle_Div'></div>");
+            $rowTitleTh.append($rowTitleDiv);
             // $rowTitleTh.attr("rowspan", reportOpt.rowTitleRows);
             // $rowTitleTh.attr("colspan", reportOpt.rowTitleCols);
 
             let tableEl =  this.commonTitleDefsToHtmlEL_TABLE(rowTitleDefs)
-            tableEl && $rowTitleTh.append(tableEl);
+            tableEl && $rowTitleDiv.append(tableEl);
             return $rowTitleTh[0];
         }
         return null;

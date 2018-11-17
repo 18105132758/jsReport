@@ -22,7 +22,7 @@ $(function(){
         colTitleCols:2,
         colTitle:[[{
             value : "序号",
-            rowSpan : 3,
+            rowSpan : 11,
             colSpan : 1
         },{
             value : "1",
@@ -36,11 +36,51 @@ $(function(){
             value : "3",
             rowSpan : 1,
             colSpan : 1
+        }],[{
+            value : "4",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "5",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "6",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "7",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "8",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "9",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "10",
+            rowSpan : 1,
+            colSpan : 1
+        }],[{
+            value : "11",
+            rowSpan : 1,
+            colSpan : 1
         }]],
         data:[
             {"name": "张三", "age":18},
             {"name": "李四", "age":22},
-            {"name": "赵武", "age":13}
+            {"name": "赵武", "age":13},
+            {"name": "赵武1", "age":13},
+            {"name": "赵武2", "age":13},
+            {"name": "赵武3", "age":13},
+            {"name": "赵武4", "age":13},
+            {"name": "赵武5", "age":13},
+            {"name": "赵武6", "age":13},
+            {"name": "赵武7", "age":13},
+            {"name": "赵武8", "age":13}
         ],
         spreadDir:'Z'
     }
