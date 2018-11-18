@@ -59,6 +59,8 @@ $.fn.reportengin = function(initOption){
             }
             //渲染数据
             let dataEL = titleUtil.drawReportDatas(reportOpt);
+            // let $xxxx = $("<div id='xxxx'></div>");
+            // $xxxx.append(dataEL);
             mainContainer.append(dataEL);
             //拼装
             let reportTable = $("<table id='reportTable'></table>");
@@ -69,46 +71,3 @@ $.fn.reportengin = function(initOption){
 
     }
 };
-
-// $(function(){
-//     var opt = {
-//         rowTitle : [[{
-//             value : "人员信息",
-//             rowSpan : 1,
-//             colSpan : 2
-//         }], [{
-//             value : "姓名",
-//             rowSpan : 1,
-//             colSpan : 1,
-//             dataProperty:"name"
-//         },{
-//             value : "年龄",
-//             dataProperty:"age",
-//             rowSpan : 1,
-//             colSpan : 1
-//         }]],
-//         colTitle:[[{
-//             value : "列标题1",
-//             rowSpan : 2,
-//             colSpan : 1
-//         },{
-//             value : "列标题1_1",
-//             rowSpan : 1,
-//             colSpan : 1
-//         }],[{
-//             value : "列标题1_2",
-//             rowSpan : 1,
-//             colSpan : 1
-//         }]],
-//         rowTitleRows:2,
-//         rowTitleCols:2,
-//         colTitleRows:2,
-//         colTitleCols:2,
-//         data:[
-//             {"name": "张三", "age":11},
-//             {"name": "李四", "age":12},
-//             // {"name": "赵武", "age":13}
-//         ]
-//     }
-//     $("#reportDiv").reportengin(opt).drawReport();
-// });
